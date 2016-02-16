@@ -55,6 +55,7 @@ e2e-tests/            --> end-to-end tests
   scenarios.js          --> end-to-end scenarios to be run by Protractor
 ```
 
+## Technologies
 
 [git]: http://git-scm.com/
 [bower]: http://bower.io
