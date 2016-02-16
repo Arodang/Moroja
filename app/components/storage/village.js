@@ -12,7 +12,8 @@ define([
                 population: 15,
                 lumber: 30,
                 stone: 15,
-                food: 60
+                food: 60,
+                water: 60
             };
             var village = {};
 
@@ -21,6 +22,7 @@ define([
                 village.lumber = BASE_VALUES.lumber;
                 village.stone = BASE_VALUES.stone;
                 village.food = BASE_VALUES.food;
+                village.water = BASE_VALUES.water;
             };
 
             var getVillage = function() {
