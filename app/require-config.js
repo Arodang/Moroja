@@ -34,20 +34,21 @@ require.config({
 			'exports':'angular.mock'
 		},
 		'angularLocalStorage': ['angular'],
-		'bootstrap': ['jquery']
+		'bootstrap': {deps: ['jquery']}
 	},
 	priority: [
 		"angular"
 	],
 	deps: window.__karma__ ? allTestFiles : [],
 	callback: window.__karma__ ? window.__karma__.start : null,
-	baseUrl: window.__karma__ ? '/base/app' : '',
+	baseUrl: window.__karma__ ? '/base/app' : ''
 });
 
 require([
 	'angular',
-	'app'
-	], function(angular, app) {
+	'app',
+	'bootstrap'
+	], function(angular, app, bootstrap) {
 		var $html = angular.element(document.getElementsByTagName('html')[0]);
 		angular.element().ready(function() {
 			// bootstrap the app manually
