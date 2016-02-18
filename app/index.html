@@ -9,23 +9,20 @@
 	<script src="bower_components/html5-boilerplate/js/vendor/modernizr-2.6.2.min.js"></script>
 
 	<title>Moroja</title>
-	<link rel="stylesheet" href="app.css">
 
 </head>
 <body ng-cloak>
 
 	<div class="container">
 		<!-- This is the header -->
-		<ul class="menu list-unstyled">
-			<li><a href="#/view1">view1</a></li>
-			<li><a href="#/view2">view2</a></li>
-		</ul>
+		<header-directive></header-directive>
 
 		<!-- This is the main body, the angular app div -->
 		<div ng-view></div>
 
 		<!-- This is the footer -->
-		<div>Angular seed app: v<span app-version></span></div>
+		<footer-directive></footer-directive>
+		<div>I AM A FOOTER! WOW!</div>
 	</div>
 
 

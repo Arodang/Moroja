@@ -1,7 +1,7 @@
 /*global module, inject */
 //'use strict';
 //
-//define(['app', 'angularMocks'], function(app) {
+//define(['../../app', 'angularMocks'], function(app) {
 //	describe('moroja.view2 module', function() {
 //
 //		beforeEach(module('moroja.view2'));
