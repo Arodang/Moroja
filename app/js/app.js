@@ -12,7 +12,7 @@ var app = angular.module('morojaApp', [ 'ngRoute' ]);
 app.constant('VERSION', require('../../package.json').version);
 
 require('./village');
-
+require('./structure');
 app.config(function($routeProvider) {
 
   $routeProvider

@@ -2,4 +2,4 @@
 
 var app = require('angular').module('morojaApp');
 
-app.directive('villageDirective', require('./villageDirective'));
+app.directive('footerDirective', require('./footerDirective'));

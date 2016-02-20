@@ -2,7 +2,7 @@
 <html lang="en">
 
 <head>
-  <title>Angular and Browserify</title>
+  <title>Moroja</title>
   <link rel="stylesheet" href="css/normalize.css">
   <link rel="stylesheet" href="css/app.css">
   <link rel="stylesheet" href="dist/lib/bootstrap.css">
@@ -13,11 +13,12 @@
 <div ng-app="morojaApp">
 
   <div class="container panel panel-default">
+    <header-directive></header-directive>
     <div class="panel-body">
       <div ng-view></div>
     </div>
 
-
+    <footer-directive></footer-directive>
   </div>
 
 
