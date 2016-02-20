@@ -1,7 +1,9 @@
-logs/*
-!.gitkeep
-node_modules/
-app/bower_components/
-tmp
-.DS_Store
-.idea
+node_modules
+
+# vim tmp files
+*.swp
+*.un~
+
+app/ngmin
+app/ngAnnotate
+app/dist
