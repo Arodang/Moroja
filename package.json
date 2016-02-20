@@ -46,13 +46,6 @@
   "browser": {
     "es5-sham": "./node_modules/es5-shim/es5-sham.min.js",
     "es5-shim": "./node_modules/es5-shim/es5-shim.min.js",
-    "jquery": "./node_modules/jquery/dist/jquery.js",
-    "bootstrap": "./node_modules/bootstrap/dist/js/bootstrap.js"
-  },
-  "bootstrap": {
-    "exports": "bootstrap",
-    "depends": {
-      "jquery": "$"
-    }
+    "jquery": "./node_modules/jquery/dist/jquery.js"
   }
 }
