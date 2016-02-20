@@ -3,12 +3,13 @@
 define([
 	'angular',
 	'angularRoute',
-	'village/villageCtrl'
-], function(angular, ngRoute, VillageCtrl) {
+	'village/villageCtrl',
+    'components/storage/village-service'
+], function(angular, ngRoute, VillageCtrl, villageService) {
 	angular.module('moroja.village', ['ngRoute'])
 		// We can load the controller only when needed from an external file
-		.controller('VillageCtrl', ['$scope', function($scope) {
-			return new VillageCtrl($scope);
+		.controller('VillageCtrl', ['$scope', 'villageService', function($scope, villageService) {
+			return new VillageCtrl($scope, villageService);
 		}])
 		.config(['$routeProvider', function($routeProvider) {
 			$routeProvider.when('/village', {

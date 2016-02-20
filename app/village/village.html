@@ -1,9 +1,54 @@
-<div class="row">
-	<div class="col-md-6">
-        Hello left
+<div class="row text-center" id="village">
+	<div class="row" id="description">
+        <p ng-bind="village.description"/>
     </div>
-    <div class="col-md-6">
-        Hello right
+
+    <div class="row" id="resources">
+        <div class="col-sm-12 col-md-4 panel panel-default" id="gatherResources">
+            <div class="panel-body">
+                <!-- TODO: Replace this with an ng-repeat for resource in resources -->
+                <div class="row" id="lumber">
+                    <button class="btn btn-default col-md-3" ng-click="gatherResources('lumber')">Lumber</button>
+                    <p class="col-md-9">Spend a few hours cutting down lumber for use in the village.</p>
+                </div>
+                <div class="row" id="firewood">
+                    <button class="btn btn-default col-md-3" ng-click="gatherResources('firewood')">Firewood</button>
+                    <p class="col-md-9">Split a piece of lumber into firewood to keep your cabin warm.</p>
+                </div>
+                <div class="row" id="food">
+                    <button class="btn btn-default col-md-3" ng-click="gatherResources('food')">Food</button>
+                    <p class="col-md-9">Harvest some of the bountiful berries and nuts from the surrounding forest for dinner tonight.</p>
+                </div>
+                <div class="row" id="water">
+                    <button class="btn btn-default col-md-3" ng-click="gatherResources('water')">Water</button>
+                    <p class="col-md-9">Fetch a bucket of water from the nearby freshwater stream, then boil it to ensure it is safe to drink.</p>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-sm-12 col-md-8 panel panel-default" id="resourceDisplay">
+            <div class="panel-body">
+                <!-- TODO: Replace this for a ng-repeat resource in resources-->
+                <div class="row" id="lumberDisplay">
+                    <label>Lumber: </label>
+                    <span ng-bind="village.resources.lumber"></span>
+                </div>
+                <div class="row" id="firewoodDisplay">
+                    <label>Firewood: </label>
+                    <span ng-bind="village.resources.firewood"></span>
+                </div>
+                <div class="row" id="foodDisplay">
+                    <label>Food: </label>
+                    <span ng-bind="village.resources.food"></span>
+                </div>
+                <div class="row" id="waterDisplay">
+                    <label>Water: </label>
+                    <span ng-bind="village.resources.water"></span>
+                </div>
+
+            </div>
+
+        </div>
     </div>
 
 </div>
