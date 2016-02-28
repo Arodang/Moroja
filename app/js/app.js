@@ -3,6 +3,7 @@
 var angular = require('angular');
 
 require('./dependencies');
+var css = require('../css/app.css');
 
 var app = angular.module('morojaApp', [ 'ngRoute', 'LocalStorageModule' ]);
 

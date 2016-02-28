@@ -1,6 +1,7 @@
 'use strict';
 
 var browserify = require('browserify')
+  , browserifyCSS = require('browserify-css')
   , del = require('del')
   , source = require('vinyl-source-stream')
   , vinylPaths = require('vinyl-paths')
@@ -75,6 +76,7 @@ gulp.task('unit', function () {
 
 gulp.task('browserify', /*['lint', 'unit'],*/ function () {
   return browserify(paths.src + 'app.js', {debug: true})
+  .transform(browserifyCSS, {'autoInject': true, 'minify': false, 'rootDir': '.'})
   .bundle()
   .pipe(source('app.js'))
   .pipe(gulp.dest(paths.dist))
