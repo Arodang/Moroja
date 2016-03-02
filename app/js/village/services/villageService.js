@@ -5,10 +5,7 @@
          resources: {
          }
      };
-     var time = {
-         time: TimeService.getTimer().time,
-         date: TimeService.getTimer().date
-     };
+     var time = TimeService.getTimer();
 
      village.resources = MorojaConstantsService.getBaseResources();
 

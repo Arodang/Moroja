@@ -6,9 +6,6 @@ module.exports = function () {
     var getTimer = function() {
         return timer
     };
-    var getDate = function() {
-        return timer.day;
-    };
     return {
         getTimer : getTimer
     }
