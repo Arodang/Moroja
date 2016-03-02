@@ -2,27 +2,7 @@
 
 .moroja-footer
 {
-    /*
-    display:inline-block;
-    float:left;
-    width: 50%;*/
     text-align:center;
-}
-
-
-
-.moroja-footer-left
-{
-
-    /*background-color: blue;*/
-}
-
-
-.moroja-footer-right
-{
-
-    /*background-color: red;*/
-
 }
 
 .moroja-footer a:hover

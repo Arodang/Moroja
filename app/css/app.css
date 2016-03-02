@@ -1,4 +1,5 @@
 @import url("../js/structure/footer/directives/footer.css");
+@import url("../js/structure/header/directives/header.css");
 @import url("../../node_modules/bootstrap/dist/css/bootstrap.css");
 @import url("normalize.css");
 @import url("unsemantic-grid-responsive.css");
