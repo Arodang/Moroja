@@ -1,14 +1,22 @@
- module.exports = function (StorageService, MorojaConstantsService) {
+ module.exports = function (StorageService, MorojaConstantsService, TimeService) {
      var village = {
          description : "Your village is tiny, with only a few inhabitants. Smoke curls from your " +
          "cabin's chimney, but the cold wind warns you to gather more firewood before night hits.",
          resources: {
          }
      };
+     var time = {
+         time: TimeService.getTimer().time,
+         date: TimeService.getTimer().date
+     };
 
      village.resources = MorojaConstantsService.getBaseResources();
+
      var BASE_VALUES = MorojaConstantsService.getResources();
     return {
+        getTimer: function() {
+          return time;
+        },
         addResource: function(key, village) {
             //Icky way to get around JS using references and not being able to save separate values.
             var oldResources = JSON.parse(JSON.stringify(village.resources));

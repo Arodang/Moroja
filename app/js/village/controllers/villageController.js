@@ -1,5 +1,6 @@
 module.exports = function($scope, VillageService, StorageService) {
     $scope.village = {};
+    $scope.timer = {};
 
     $scope.gatherResources = function(resourceKey) {
         $scope.village = VillageService.addResource(resourceKey, $scope.village);
@@ -12,6 +13,7 @@ module.exports = function($scope, VillageService, StorageService) {
 
     var initialize = function() {
         $scope.village = VillageService.getVillage();
+        $scope.timer = VillageService.getTimer();
     };
 
     initialize();
