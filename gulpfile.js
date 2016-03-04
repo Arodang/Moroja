@@ -113,11 +113,18 @@ gulp.task('browserify-tests', function () {
   .pipe(gulp.dest(paths.test + 'browserified'));
 });
 
-gulp.task('karma', ['browserify-tests'], function (done) {
+gulp.task('karma-debug', ['browserify-tests'], function (done) {
     new Server({
         configFile: __dirname + '/karma.conf.js',
-        singleRun: true
+        singleRun: false
     }, done).start();
+});
+
+gulp.task('karma', ['browserify-tests'], function (done) {
+  new Server({
+    configFile: __dirname + '/karma.conf.js',
+    singleRun: true
+  }, done).start();
 });
 
 gulp.task('server', ['browserify'], function () {
