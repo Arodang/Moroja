@@ -167,5 +167,6 @@ gulp.task('fast', ['clean'], function () {
 
 gulp.task('default', ['clean'], function () {
   liveReload = false;
-  gulp.start('karma', 'browserify', 'browserify-min', 'e2e');
+  gulp.start('karma');
+  //gulp.start('karma', 'browserify', 'browserify-min', 'e2e');
 });
