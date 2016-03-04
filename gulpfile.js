@@ -145,8 +145,10 @@ gulp.task('watch', function () {
   gulp.start('server');
   gulp.watch([
     paths.src + '**/*.js',
+    paths.root + '**/*.css',
+    paths.root + '**/*.html',
     '!' + paths.src + 'third-party/**',
-    paths.test + '**/*.js',
+    '!' + paths.test + '**/*.js'
   ], ['quick']);
 });
 
