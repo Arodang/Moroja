@@ -6,7 +6,7 @@ var chai = require('chai')
 
 var StorageServiceModule = require('../../../../app/js/components/services/storageService.js');
 
-describe('The ConstantsService', function() {
+describe('The StorageService\'s', function() {
 
     var StorageService;
     var localStorageService;
@@ -37,6 +37,7 @@ describe('The ConstantsService', function() {
             expect(localStorageService.get).to.have.been.called;
         });
     });
+
     describe('resetVillage', function() {
         it('should call localStorageService.set with null', function() {
             StorageService.resetVillage(village);

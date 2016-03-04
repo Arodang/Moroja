@@ -5,7 +5,7 @@ var chai = require('chai')
 
 var ConstantsServiceModule = require('../../../../app/js/components/services/constantsService.js');
 
-describe('The ConstantsService', function() {
+describe('The ConstantsService\s', function() {
 
     var ConstantsService;
 
@@ -34,6 +34,7 @@ describe('The ConstantsService', function() {
     describe('getBaseResources', function() {
         it('should return resources with specific fields on it', function() {
             var resources = ConstantsService.getBaseResources();
+            expect(resources).to.be.a('object');
             var i;
             for(i in resources) {
                 var res = resources[i];
@@ -42,7 +43,6 @@ describe('The ConstantsService', function() {
                 expect(res).to.have.property('name');
                 expect(res).to.have.property('resKey');
             };
-
         });
     });
 
