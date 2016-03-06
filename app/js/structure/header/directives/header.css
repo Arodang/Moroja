@@ -14,7 +14,7 @@
 {
     float:left;
     text-align:center;
-    vertical-align:middle;
+    top:50%;
     width:60%;
     height:100%;
 }
