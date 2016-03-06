@@ -5,7 +5,7 @@ var chai = require('chai')
 
 var ConstantsServiceModule = require('../../../../app/js/components/services/constantsService.js');
 
-describe('The ConstantsService\s', function() {
+describe('The ConstantsService\'s', function() {
 
     var ConstantsService;
 
