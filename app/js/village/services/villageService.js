@@ -36,6 +36,10 @@
             if(insufficientResources || !StorageService.saveVillage(village)) {
                 village.resources = oldResources;
             }
+            else{
+                time.addTime(currentResource.timeToGather);
+                console.log(time.time);
+            }
 
             return village;
         },
