@@ -2,8 +2,8 @@
 <div class="row text-center" id="village">
     <div class="row" id="description">
         <p ng-bind="village.description"/>
-        <h3 ng-bind="timer.time"></h3>
-        <h3 ng-bind="timer.day"></h3>
+        <h3 ng-bind="timer.displayTime"></h3>
+        <h3 ng-bind="timer.displayDay"></h3>
     </div>
     <button class="btn btn-danger" ng-click="resetStorage()">RESET</button>
 

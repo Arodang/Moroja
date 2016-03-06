@@ -38,7 +38,6 @@
             }
             else{
                 time.addTime(currentResource.timeToGather);
-                console.log(time.time);
             }
 
             return village;
