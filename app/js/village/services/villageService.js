@@ -3,22 +3,19 @@
          description : "Your village is tiny, with only a few inhabitants. Smoke curls from your " +
          "cabin's chimney, but the cold wind warns you to gather more firewood before night hits.",
          resources: {
-         }
+         },
+         time: TimeService.getBasicTimer()
      };
-     var time = TimeService.getTimer();
+     console.log("init", village);
 
      village.resources = MorojaConstantsService.getBaseResources();
 
      var BASE_VALUES = MorojaConstantsService.getResources();
     return {
-        getTimer: function() {
-          return time;
-        },
         addResource: function(key, village) {
             //Icky way to get around JS using references and not being able to save separate values.
             var oldResources = JSON.parse(JSON.stringify(village.resources));
-
-
+            console.log("init1", village);
             var currentResource = BASE_VALUES[key];
 
             var insufficientResources = false;
@@ -37,7 +34,8 @@
                 village.resources = oldResources;
             }
             else{
-                time.addTime(currentResource.timeToGather);
+                console.log("Get resource ", village);
+                village.time.addTime(currentResource.timeToGather);
             }
 
             return village;
@@ -45,8 +43,11 @@
         getVillage: function() {
             var vil = StorageService.getVillage();
             if (vil === null) {
+                console.log("hello world");
                 village.resources = MorojaConstantsService.getBaseResources();
+                village.time = TimeService.getBasicTimer();
                 vil = village;
+                console.log("get village ", vil);
                 StorageService.saveVillage(vil);
             }
             return vil;

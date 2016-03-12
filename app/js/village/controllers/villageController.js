@@ -13,7 +13,6 @@ module.exports = function($scope, VillageService, StorageService) {
 
     var initialize = function() {
         $scope.village = VillageService.getVillage();
-        $scope.timer = VillageService.getTimer();
     };
 
     initialize();
