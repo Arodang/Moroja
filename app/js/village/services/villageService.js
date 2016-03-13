@@ -71,7 +71,12 @@ module.exports = function (StorageService, MorojaConstantsService) {
             }
             for (var key in buildingsSchema) {
                 if (!vil.buildings[key]) {
-                    vil.buildings[key] = { "level": 0 };
+                    vil.buildings[key] = {
+                        "key": key,
+                        "name": buildingsSchema[key].name,
+                        "description": buildingsSchema[key].description,
+                        "level": 0
+                    };
                 }
             }
             return vil;

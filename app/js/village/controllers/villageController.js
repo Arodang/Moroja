@@ -10,6 +10,10 @@ module.exports = function($scope, VillageService, StorageService) {
         $scope.village = VillageService.getVillage();
     };
 
+    $scope.buyBuilding = function(key) {
+        $scope.village = VillageService.buyBuilding(key, $scope.village);
+    }
+
     var initialize = function() {
         $scope.village = VillageService.getVillage();
     };
