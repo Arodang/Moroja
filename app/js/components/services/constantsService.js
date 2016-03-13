@@ -94,6 +94,20 @@ module.exports = function () {
                 "resourceMultipliers": {
                     "lumber": 1.25
                 }
+            },
+            "well": {
+                "name": "Well",
+                "description": "A more convenient place to collect water.",
+                "resourceMultipliers": {
+                    "water": 2
+                }
+            },
+            "quarry": {
+                "name": "Quarry",
+                "description": "A big hole in the ground... with lots of rocks.",
+                "resourceMultipliers": {
+                    "stone": 1.25
+                }
             }
         };
         return buildingsStats;
