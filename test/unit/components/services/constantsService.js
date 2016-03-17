@@ -46,4 +46,20 @@ describe('The ConstantsService\'s', function() {
         });
     });
 
+    describe('getBuildings', function() {
+        it('should return a set of buildings with specific fields on each building', function() {
+            var resources = ConstantsService.getBuildings();
+            expect(resources).to.be.a('object');
+            for(var i in resources) {
+                var res = resources[i];
+                expect(res).to.have.property('name');
+                expect(res).to.have.property("description");
+                expect(res).to.have.property("resourceMultipliers");
+                for(var m in res.resourceMultipliers) {
+                    expect(res.resourceMultipliers[m]).to.be.a('number');
+                }
+            }
+        });
+    });
+
 });
