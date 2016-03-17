@@ -13,6 +13,8 @@ describe('The VillageService\'s', function() {
     var ConstantsService;
     var village;
     var baseValues;
+    var TimeService;
+    var time;
 
     beforeEach(function() {
         village = {
@@ -24,6 +26,12 @@ describe('The VillageService\'s', function() {
                 "firewood" : {
                     amount : 5
                 }
+            },
+            time: {
+                "day": 0,
+                "time": 0,
+                "displayTime": "Time 00:00",
+                "displayDay": "Day 0"
             }
         };
 
@@ -44,6 +52,13 @@ describe('The VillageService\'s', function() {
             }
         };
 
+        time = {
+            "day": 0,
+            "time": 0,
+            "displayTime": "Time 00:00",
+            "displayDay": "Day 0"
+        };
+
         StorageService = {
             saveVillage : sinon.stub().returns(true),
             getVillage: sinon.stub().returns(village)
@@ -54,7 +69,13 @@ describe('The VillageService\'s', function() {
             getBaseResources : sinon.stub().returns(village)
         };
 
-        VillageService = new VillageServiceModule(StorageService, ConstantsService);
+        TimeService = {
+            getTimer : sinon.stub().returns(time),
+            getBasicTimer: sinon.stub().returns(time),
+            addTime: sinon.stub().returns(time)
+        };
+
+        VillageService = new VillageServiceModule(StorageService, ConstantsService, TimeService);
     });
 
     describe('addResource', function() {
@@ -62,7 +83,7 @@ describe('The VillageService\'s', function() {
             var response = VillageService.addResource("lumber", village);
             expect(StorageService.saveVillage).to.have.been.called;
             expect(response.resources.lumber.amount).to.equal(8);
-        })
+        });
 
         it('should increase firewood and decrease lumber when called for firewood', function() {
             var response = VillageService.addResource("firewood", village);
