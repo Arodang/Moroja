@@ -15,7 +15,6 @@ describe('The VillageController\'s', function() {
     var $scope;
     var VillageService;
     var StorageService;
-    var resKey = "lumber";
 
     beforeEach(function() {
         village = {
@@ -26,7 +25,8 @@ describe('The VillageController\'s', function() {
 
         VillageService = {
             getVillage: sinon.stub().returns(village),
-            addResource: sinon.stub().returns(village)
+            addResource: sinon.stub().returns(village),
+            buyBuilding: sinon.stub().returns(village)
         };
 
         StorageService = {
@@ -45,15 +45,24 @@ describe('The VillageController\'s', function() {
 
     describe('function', function() {
         it('gatherResources should add resources', function() {
-            $scope.gatherResources(resKey);
+            $scope.gatherResources("resKey");
+
             expect($scope.village).to.equal(village);
-            expect(VillageService.addResource).to.have.been.calledWith(resKey, $scope.village);
+            expect(VillageService.addResource).to.have.been.calledWith("resKey", $scope.village);
         });
 
         it('resetStorage should reset village and get base village', function() {
             $scope.resetStorage();
+
             expect($scope.village).to.equal(village);
             expect(StorageService.resetVillage).to.have.been.called;
+        });
+
+        it('buyBuilding should buy a building', function() {
+            $scope.buyBuilding("well");
+
+            expect($scope.village).to.equal(village);
+            expect(VillageService.buyBuilding).to.have.been.calledWith("well", $scope.village);
         });
     });
 
