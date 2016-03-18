@@ -12,19 +12,8 @@ describe('The TimeService\'s', function() {
             TimeService = new TimeServiceModule();
         });
 
-        describe('getTimer', function() {
-            it('should return a time service', function() {
-                var time = TimeService.getTimer();
-                expect(time).to.be.a('object');
-                expect(time).to.have.property('time');
-                expect(time).to.have.property('day');
-                expect(time).to.have.property('displayDay');
-                expect(time).to.have.property('displayTime');
-            });
-        });
-
-        describe('getBasicTime', function() {
-            it('should return a basic time service', function() {
+        describe('getBasicTimer', function() {
+            it('should return a basic time service with a time and day of zero', function() {
                 var time = TimeService.getBasicTimer();
                 expect(time).to.be.a('object');
                 expect(time).to.have.property('time');
@@ -35,7 +24,7 @@ describe('The TimeService\'s', function() {
         });
 
         describe('addTime', function() {
-            it('should return a time service with a new time', function() {
+            it('should return a time service with a new time object with the specified added time', function() {
                 var time = TimeService.getBasicTimer();
                 time = TimeService.addTime(2, time);
                 expect(time).to.be.a('object');

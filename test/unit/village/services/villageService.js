@@ -15,7 +15,6 @@ describe('The VillageService\'s', function() {
     var village;
     var baseValues;
     var buildingStats;
-    var fakeTimer;
 
     beforeEach(function() {
         village = {

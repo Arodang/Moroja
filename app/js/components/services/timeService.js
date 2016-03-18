@@ -1,5 +1,5 @@
 module.exports = function () {
-    var getTimer = function() {
+    var getBasicTimer = function() {
         var timer = {
             day: 0,
             time: 0,
@@ -7,15 +7,6 @@ module.exports = function () {
             displayDay: "Day 0"
         };
         return timer;
-    };
-    var getBasicTimer = function() {
-        var basicTimer = getTimer();
-        basicTimer.day = 0;
-        basicTimer.time = 0;
-        basicTimer.displayTime = "Time 00:00";
-        basicTimer.displayDay = "Day 0";
-
-        return basicTimer;
     };
 
     var addTime = function(addedTime, timer) {
@@ -30,10 +21,9 @@ module.exports = function () {
         timer.displayTime = "Time " + timer.time + ":00";
 
         return timer;
-    }
+    };
 
     return {
-        getTimer : getTimer,
         getBasicTimer: getBasicTimer,
         addTime: addTime
     };
