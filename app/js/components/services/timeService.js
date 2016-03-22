@@ -3,7 +3,7 @@ module.exports = function () {
         var timer = {
             day: 0,
             time: 0,
-            displayTime: "Time 00:00",
+            displayTime: "Time 0:00",
             displayDay: "Day 0"
         };
         return timer;

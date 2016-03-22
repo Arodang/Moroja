@@ -20,6 +20,10 @@ describe('The TimeService\'s', function() {
                 expect(time).to.have.property('day');
                 expect(time).to.have.property('displayDay');
                 expect(time).to.have.property('displayTime');
+                expect(time.time).to.equal(0);
+                expect(time.day).to.equal(0);
+                expect(time.displayDay).to.equal("Day 0");
+                expect(time.displayTime).to.equal("Time 0:00");
             });
         });
 
