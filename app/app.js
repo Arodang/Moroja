@@ -10,8 +10,7 @@ var app = angular.module('morojaApp', [ 'ngRoute', 'LocalStorageModule' ]);
 app.constant('VERSION', require('../package.json').version);
 
 require('./village');
-require('./structure');
-require('./components');
+require('./shared');
 app.config(function($routeProvider) {
 
   $routeProvider

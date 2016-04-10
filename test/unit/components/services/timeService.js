@@ -3,7 +3,7 @@
 var chai = require('chai')
     , expect = chai.expect;
 
-var TimeServiceModule = require('../../../../app/js/components/services/timeService.js');
+var TimeServiceModule = require('../../../../app/shared/services/timeService.js');
 
 describe('The TimeService\'s', function() {
         var TimeService;
