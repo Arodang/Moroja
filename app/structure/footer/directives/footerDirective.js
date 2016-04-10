@@ -1,7 +1,7 @@
 
 module.exports = function () {
     return {
-        templateUrl : 'js/village/directives/village.html',
+        templateUrl : './structure/footer/directives/footer.html',
         controller: function($scope) {
         }
     };
