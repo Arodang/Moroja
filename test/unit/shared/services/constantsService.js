@@ -3,7 +3,7 @@
 var chai = require('chai')
     , expect = chai.expect;
 
-var ConstantsServiceModule = require('../../../../app/js/components/services/constantsService.js');
+var ConstantsServiceModule = require('../../../../app/shared/services/constantsService.js');
 
 describe('The ConstantsService\'s', function() {
 

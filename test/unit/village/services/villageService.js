@@ -4,7 +4,7 @@ var chai = require('chai')
     , expect = chai.expect
     , sinon = require('sinon');
 
-var VillageServiceModule = require('../../../../app/js/village/services/villageService.js');
+var VillageServiceModule = require('../../../../app/village/services/villageService.js');
 
 describe('The VillageService\'s', function() {
 

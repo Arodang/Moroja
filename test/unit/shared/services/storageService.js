@@ -4,7 +4,7 @@ var chai = require('chai')
     , expect = chai.expect
     , sinon = require('sinon');
 
-var StorageServiceModule = require('../../../../app/js/components/services/storageService.js');
+var StorageServiceModule = require('../../../../app/shared/services/storageService.js');
 
 describe('The StorageService\'s', function() {
 

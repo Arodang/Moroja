@@ -7,7 +7,7 @@ var chai = require('chai')
 
 chai.use(sinonChai);
 
-var VillageControllerModule = require('../../../../app/js/village/controllers/villageController.js');
+var VillageControllerModule = require('../../../../app/village/controllers/villageController.js');
 
 describe('The VillageController\'s', function() {
 
