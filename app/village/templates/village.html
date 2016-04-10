@@ -2,7 +2,8 @@
 <div class="row text-center" id="village">
     <div class="row" id="description">
         <p ng-bind="village.description"/>
-
+        <h3 ng-bind="village.time.displayTime"></h3>
+        <h3 ng-bind="village.time.displayDay"></h3>
     </div>
     <button class="btn btn-danger" ng-click="resetStorage()">RESET</button>
 
@@ -19,11 +20,21 @@
         <div class="col-sm-12 col-md-8 panel panel-default" id="resourceDisplay">
             <div class="panel-body">
                 <div class="row" ng-repeat="resource in village.resources">
-                    <label ng-bind="resource.name"> </label>
+                    <label ng-bind="resource.name"></label>
                     <span ng-bind="resource.amount"></span>
                 </div>
             </div>
+        </div>
 
+        <div class="col-sm-12 col-md-8 panel panel-default">
+            <div class="panel-body">
+                <div class="row" ng-repeat="building in village.buildings">
+                    <button class="btn btn-default" ng-class="{'disabled': building.level > 0}" ng-click="buyBuilding(building.key)" ng-bind="building.name"></button>
+                    <span ng-bind="building.description"></span>
+                    <br/>
+                    <label ng-bind-template="Level: {{building.level}}"></label>
+                </div>
+            </div>
         </div>
     </div>
 

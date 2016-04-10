@@ -53,7 +53,7 @@ module.exports = function () {
                 "resourceKey" : "water",
                 "gatherDescription" : "Fetch a bucket of water from the nearby freshwater stream, then boil it to ensure it is safe to drink."
             },
-            "stone":{
+            "stone": {
                 "name" : "Stone",
                 "baseAmount" : 10,
                 "increaseAmounts" : {
@@ -71,7 +71,7 @@ module.exports = function () {
         return resources;
     };
 
-    getBaseResources = function() {
+    var getBaseResources = function() {
         var resources = getResources();
         var baseResources = {};
 
@@ -86,9 +86,36 @@ module.exports = function () {
         return baseResources;
     };
 
+    var getBuildings = function() {
+        var buildingsStats = {
+            "sawMill": {
+                "name": "Saw Mill",
+                "description": "A factory where machines saw logs into lumber.",
+                "resourceMultipliers": {
+                    "lumber": 1.25
+                }
+            },
+            "well": {
+                "name": "Well",
+                "description": "A more convenient place to collect water.",
+                "resourceMultipliers": {
+                    "water": 2
+                }
+            },
+            "quarry": {
+                "name": "Quarry",
+                "description": "A big hole in the ground... with lots of rocks.",
+                "resourceMultipliers": {
+                    "stone": 1.25
+                }
+            }
+        };
+        return buildingsStats;
+    };
+
     return {
         getResources : getResources,
-        getBaseResources : getBaseResources
-
+        getBaseResources : getBaseResources,
+        getBuildings : getBuildings
     };
 };
