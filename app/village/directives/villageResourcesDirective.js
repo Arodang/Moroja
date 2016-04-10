@@ -2,7 +2,8 @@
 module.exports = function () {
     return {
         templateUrl : './village/directives/village.html',
-        controller: function($scope) {
-        }
+        controller: require('./villageResourcesCtrl'),
+        restrict: 'E',
+        scope: {}
     };
 };
