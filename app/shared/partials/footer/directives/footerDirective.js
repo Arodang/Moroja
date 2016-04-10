@@ -1,7 +1,7 @@
 
 module.exports = function () {
     return {
-        templateUrl : './structure/footer/directives/footer.html',
+        templateUrl : './shared/partials/footer/directives/footer.html',
         controller: function($scope) {
         }
     };
