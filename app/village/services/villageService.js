@@ -8,14 +8,14 @@ module.exports = function (StorageService, MorojaConstantsService, TimeService) 
         time: {}
     };
 
-    village.resources = MorojaConstantsService.getBaseResources();
+    village.resources = MorojaConstantsService.getResources();
     village.time = TimeService.getBasicTimer();
 
-    var BASE_VALUES = MorojaConstantsService.getResources();
+    var resourceSchema = MorojaConstantsService.getResourceSchema();
 
-    var buildingsSchema = MorojaConstantsService.getBuildings();
+    var buildingsSchema = MorojaConstantsService.getBuildingSchema();
     var baseResourceMultipliers = {};
-    for(var res in BASE_VALUES) {
+    for(var res in resourceSchema) {
         baseResourceMultipliers[res] = 1;
     }
 
@@ -25,7 +25,7 @@ module.exports = function (StorageService, MorojaConstantsService, TimeService) 
             var oldResources = JSON.parse(JSON.stringify(village.resources));
             var oldTime = JSON.parse(JSON.stringify(village.time));
 
-            var currentResource = BASE_VALUES[key];
+            var currentResource = resourceSchema[key];
 
             var sufficientResources = true;
 
@@ -70,7 +70,7 @@ module.exports = function (StorageService, MorojaConstantsService, TimeService) 
         getVillage: function() {
             var vil = StorageService.getVillage();
             if (vil === null) {
-                village.resources = MorojaConstantsService.getBaseResources();
+                village.resources = MorojaConstantsService.getResources();
                 village.time = TimeService.getBasicTimer();
                 vil = village;
                 StorageService.saveVillage(vil);

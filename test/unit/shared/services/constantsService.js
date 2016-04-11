@@ -13,9 +13,9 @@ describe('The ConstantsService\'s', function() {
         ConstantsService = new ConstantsServiceModule();
     });
 
-    describe('getResources', function() {
+    describe('getResourceSchema', function() {
         it('should return a resources object', function() {
-            var resources = ConstantsService.getResources();
+            var resources = ConstantsService.getResourceSchema();
             expect(resources).to.be.a('object');
             var i;
             for(i in resources) {
@@ -31,9 +31,9 @@ describe('The ConstantsService\'s', function() {
         });
     });
 
-    describe('getBaseResources', function() {
+    describe('getResources', function() {
         it('should return resources with specific fields on it', function() {
-            var resources = ConstantsService.getBaseResources();
+            var resources = ConstantsService.getResources();
             expect(resources).to.be.a('object');
             var i;
             for(i in resources) {
@@ -46,9 +46,9 @@ describe('The ConstantsService\'s', function() {
         });
     });
 
-    describe('getBuildings', function() {
+    describe('getBuildingSchema', function() {
         it('should return a set of buildings with specific fields on each building', function() {
-            var resources = ConstantsService.getBuildings();
+            var resources = ConstantsService.getBuildingSchema();
             expect(resources).to.be.a('object');
             for(var i in resources) {
                 var res = resources[i];

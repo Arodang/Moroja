@@ -14,7 +14,7 @@ describe('The VillageService\'s', function() {
     var TimeService;
     var village;
     var baseValues;
-    var buildingStats;
+    var buildingSchema;
 
     beforeEach(function() {
         village = {
@@ -52,7 +52,7 @@ describe('The VillageService\'s', function() {
             }
         };
 
-        buildingStats = {
+        buildingSchema = {
             "sawMill": {
                 "resourceMultipliers": {
                     "lumber": 1.25
@@ -66,9 +66,9 @@ describe('The VillageService\'s', function() {
         };
 
         ConstantsService = {
-            getResources : sinon.stub().returns(baseValues),
-            getBaseResources : sinon.stub().returns(village),
-            getBuildings : sinon.stub().returns(buildingStats)
+            getResourceSchema : sinon.stub().returns(baseValues),
+            getResources : sinon.stub().returns(village),
+            getBuildingSchema : sinon.stub().returns(buildingSchema)
         };
 
         TimeService = {
@@ -147,7 +147,7 @@ describe('The VillageService\'s', function() {
             var response = VillageService.getVillage();
 
             expect(StorageService.getVillage).to.have.been.called;
-            expect(ConstantsService.getBaseResources).not.to.have.been.calledAfter(StorageService.getVillage);
+            expect(ConstantsService.getResources).not.to.have.been.calledAfter(StorageService.getVillage);
             expect(response).to.equal(village);
         });
 
@@ -157,7 +157,7 @@ describe('The VillageService\'s', function() {
             var response = VillageService.getVillage();
 
             expect(StorageService.getVillage).to.have.been.called;
-            expect(ConstantsService.getBaseResources).to.have.been.called;
+            expect(ConstantsService.getResources).to.have.been.called;
             expect(StorageService.saveVillage).to.have.been.called;
             expect(response.resources).to.equal(village);
         });

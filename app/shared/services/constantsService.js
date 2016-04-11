@@ -1,5 +1,5 @@
 module.exports = function () {
-    var getResources = function() {
+    var getResourceSchema = function() {
         var resources = {
             "lumber": {
                 "name" : "Lumber",
@@ -71,8 +71,8 @@ module.exports = function () {
         return resources;
     };
 
-    var getBaseResources = function() {
-        var resources = getResources();
+    var getResources = function() {
+        var resources = getResourceSchema();
         var baseResources = {};
 
         for (var i in resources) {
@@ -86,7 +86,7 @@ module.exports = function () {
         return baseResources;
     };
 
-    var getBuildings = function() {
+    var getBuildingSchema = function() {
         var buildingsStats = {
             "sawMill": {
                 "name": "Saw Mill",
@@ -114,8 +114,8 @@ module.exports = function () {
     };
 
     return {
+        getResourceSchema : getResourceSchema,
         getResources : getResources,
-        getBaseResources : getBaseResources,
-        getBuildings : getBuildings
+        getBuildingSchema : getBuildingSchema
     };
 };
