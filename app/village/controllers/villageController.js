@@ -3,21 +3,28 @@ module.exports = function($scope, VillageService, StorageService) {
     $scope.timer = {};
 
     $scope.gatherResources = function(resourceKey) {
-        $scope.village = VillageService.addResource(resourceKey, $scope.village);
+        VillageService.addResource(resourceKey);
     };
 
     $scope.resetStorage = function() {
-        StorageService.resetVillage();
-        $scope.village = VillageService.getVillage();
+        VillageService.resetVillage();
     };
 
     $scope.buyBuilding = function(key) {
-        $scope.village = VillageService.buyBuilding(key, $scope.village);
-    }
+        VillageService.buyBuilding(key);
+    };
 
     var initialize = function() {
+        getVillage();
+    };
+
+    var getVillage = function() {
         $scope.village = VillageService.getVillage();
     };
+
+    $scope.$on('VillageUpdated', getVillage());
+
+
 
     initialize();
 };
