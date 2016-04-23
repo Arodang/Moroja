@@ -15,12 +15,12 @@ describe('The VillageService\'s', function() {
     var $rootScope;
     var resourceSchema;
     var village;
-    var baseValues;
     var buildingSchema;
 
     beforeEach(function() {
         village = {
-            description: "Hello",
+            description: "Your village is tiny, with only a few inhabitants. Smoke curls from your " +
+            "cabin's chimney, but the cold wind warns you to gather more firewood before night hits.",
             resources: {
                 "lumber" : {
                     amount : 5
@@ -66,19 +66,19 @@ describe('The VillageService\'s', function() {
 
         StorageService = {
             saveVillage : sinon.stub().returns(true),
-            getVillage: sinon.stub().returns(village),
+            getVillage: sinon.stub().returns(null),
             resetVillage: sinon.stub().returns()
         };
 
         ConstantsService = {
             getResourceSchema : sinon.stub().returns(resourceSchema),
-            getResources : sinon.stub().returns(village),
+            getResources : sinon.stub().returns(village.resources),
             getBuildingSchema : sinon.stub().returns(buildingSchema)
         };
 
         TimeService = {
             getBasicTimer : sinon.stub().returns(true),
-            addTime : sinon.stub().returns({})
+            addTime : sinon.stub().returns(false)
         };
 
         $rootScope = {
@@ -100,7 +100,7 @@ describe('The VillageService\'s', function() {
         });
 
         it('should increase firewood and decrease lumber when called for firewood', function() {
-            VillageService.addResource("firewood", village);
+            VillageService.addResource("firewood");
             var vil = VillageService.getVillage();
 
             expect(StorageService.saveVillage).to.have.been.called;
@@ -114,7 +114,7 @@ describe('The VillageService\'s', function() {
             StorageService.saveVillage = sinon.stub().returns(false);
             var vil = VillageService.getVillage();
 
-            VillageService.addResource("lumber", village);
+            VillageService.addResource("lumber");
 
             expect(TimeService.addTime).to.have.been.called;
             expect($rootScope.$broadcast).to.have.been.called.once;
@@ -126,7 +126,7 @@ describe('The VillageService\'s', function() {
             StorageService.saveVillage = sinon.stub().returns(true);
             village.resources.lumber.amount = 0;
 
-            VillageService.addResource("firewood", village);
+            VillageService.addResource("firewood");
             var vil = VillageService.getVillage();
 
             expect(TimeService.addTime).not.to.have.been.called;
@@ -136,9 +136,9 @@ describe('The VillageService\'s', function() {
         });
 
         it('should apply the resource multiplier to lumber if the village has a Saw Mill', function() {
-            village.buildings["sawMill"].level = 1;
+            VillageService.buyBuilding("sawMill");
 
-            VillageService.addResource("lumber", village);
+            VillageService.addResource("lumber");
             var vil = VillageService.getVillage();
 
             expect(StorageService.saveVillage).to.have.been.called;
@@ -150,7 +150,7 @@ describe('The VillageService\'s', function() {
 
     describe('buyBuilding', function() {
         it('should make the Saw Mill level 1 after buying that building', function () {
-            VillageService.buyBuilding("sawMill", village);
+            VillageService.buyBuilding("sawMill");
             var vil = VillageService.getVillage();
 
             expect(StorageService.saveVillage).to.have.been.called;
@@ -161,7 +161,7 @@ describe('The VillageService\'s', function() {
         it('should not change the level of Saw Mill if StorageService.saveVillage fails', function () {
             StorageService.saveVillage = sinon.stub().returns(false);
 
-            VillageService.buyBuilding("sawMill", village);
+            VillageService.buyBuilding("sawMill");
             var vil = VillageService.getVillage();
 
             expect(StorageService.saveVillage).to.have.been.called;
@@ -172,31 +172,32 @@ describe('The VillageService\'s', function() {
 
     describe('getVillage', function() {
         it('should return the village', function() {
-            var response = VillageService.getVillage();
+            var vil = VillageService.getVillage();
 
-            expect(response).to.equal(village);
+            expect(vil.resources).to.equal(village.resources);
+            expect(vil.time).to.equal(true);
+            expect(vil.buildings).to.not.be.null;
         });
     });
 
     describe('createVillage', function() {
         it('should populate description, buildings, resources, and time', function() {
-            VillageService.createVillage();
+            //createVillage gets called as part of initialization as long as getVillage returns null
             var vil = VillageService.getVillage();
 
-            expect(vil.resources).to.equal(village);
+            expect(vil.resources).to.equal(village.resources);
             expect(vil.time).to.equal(true);
             expect(vil.buildings).to.not.be.null;
-            expect(StorageService.saveVillage).to.have.been.called.twice;
-            expect(ConstantsService.getResources).to.have.been.called.twice;
-            expect(TimeService.getBasicTimer).to.have.been.called.twice;
+            expect(StorageService.saveVillage).to.have.been.called;
+            expect(ConstantsService.getResources).to.have.been.called;
+            expect(TimeService.getBasicTimer).to.have.been.called;
         });
     });
 
     describe('broadcastVillage', function() {
         it('should call $rootScope.$broadcast', function() {
-            VillageService.broadcastVillage();
-
-            expect($rootScope.$broadcast).to.have.been.called.twice;
+            //Broadcast gets called as part of initialization
+            expect($rootScope.$broadcast).to.have.been.called;
         });
     });
 
@@ -205,7 +206,7 @@ describe('The VillageService\'s', function() {
             VillageService.resetVillage();
             var vil = VillageService.getVillage();
 
-            expect(vil.resources).to.equal(village);
+            expect(vil.resources).to.equal(village.resources);
             expect(vil.time).to.equal(true);
             expect(vil.buildings).to.not.be.null;
             expect(StorageService.saveVillage).to.have.been.called.twice;

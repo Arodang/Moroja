@@ -106,10 +106,8 @@ module.exports = function (StorageService, MorojaConstantsService, TimeService, 
     initialize();
 
     return {
-        createVillage: createVillage,
         addResource: addResource,
         buyBuilding: buyBuilding,
-        broadcastVillage: broadcastVillage,
         getVillage: getVillage,
         resetVillage: resetVillage
     };

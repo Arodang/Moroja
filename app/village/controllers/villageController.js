@@ -1,4 +1,4 @@
-module.exports = function($scope, VillageService, StorageService) {
+module.exports = function($scope, VillageService) {
     $scope.village = {};
     $scope.timer = {};
 

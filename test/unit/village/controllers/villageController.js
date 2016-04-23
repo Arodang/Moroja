@@ -14,7 +14,6 @@ describe('The VillageController\'s', function() {
     var village;
     var $scope;
     var VillageService;
-    var StorageService;
 
     beforeEach(function() {
         village = {
@@ -33,7 +32,7 @@ describe('The VillageController\'s', function() {
         };
 
 
-        VillageControllerModule($scope, VillageService, StorageService);
+        VillageControllerModule($scope, VillageService);
     });
 
     describe('initialization', function() {
