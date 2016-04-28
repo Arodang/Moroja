@@ -7,33 +7,32 @@ var chai = require('chai')
 
 chai.use(sinonChai);
 
-var VillageControllerModule = require('../../../../app/js/village/controllers/villageController.js');
+var VillageControllerModule = require('../../../../app/village/controllers/villageController.js');
 
 describe('The VillageController\'s', function() {
 
     var village;
     var $scope;
     var VillageService;
-    var StorageService;
 
     beforeEach(function() {
         village = {
             description: "hello world"
         };
 
-        $scope = {};
+        $scope = {
+            $on: sinon.stub().returns()
+        };
 
         VillageService = {
             getVillage: sinon.stub().returns(village),
-            addResource: sinon.stub().returns(village),
-            buyBuilding: sinon.stub().returns(village)
+            addResource: sinon.stub().returns(),
+            buyBuilding: sinon.stub().returns(),
+            resetVillage: sinon.stub().returns()
         };
 
-        StorageService = {
-            resetVillage: sinon.spy()
-        }
 
-        VillageControllerModule($scope, VillageService, StorageService);
+        VillageControllerModule($scope, VillageService);
     });
 
     describe('initialization', function() {
@@ -47,22 +46,19 @@ describe('The VillageController\'s', function() {
         it('gatherResources should add resources', function() {
             $scope.gatherResources("resKey");
 
-            expect($scope.village).to.equal(village);
-            expect(VillageService.addResource).to.have.been.calledWith("resKey", $scope.village);
+            expect(VillageService.addResource).to.have.been.calledWith("resKey");
         });
 
         it('resetStorage should reset village and get base village', function() {
             $scope.resetStorage();
 
-            expect($scope.village).to.equal(village);
-            expect(StorageService.resetVillage).to.have.been.called;
+            expect(VillageService.resetVillage).to.have.been.called;
         });
 
         it('buyBuilding should buy a building', function() {
             $scope.buyBuilding("well");
 
-            expect($scope.village).to.equal(village);
-            expect(VillageService.buyBuilding).to.have.been.calledWith("well", $scope.village);
+            expect(VillageService.buyBuilding).to.have.been.calledWith("well");
         });
     });
 

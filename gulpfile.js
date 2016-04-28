@@ -18,7 +18,7 @@ var gulpPlugins = require('gulp-load-plugins')({
 // Define file path variables
 var paths = {
   root: 'app/',      // App root path
-  src:  'app/js/',   // Source path
+  src:  'app/',   // Source path
   dist: 'app/dist/', // Distribution path
   test: 'test/',     // Test path
 };
@@ -155,7 +155,8 @@ gulp.task('watch', function () {
     paths.root + '**/*.css',
     paths.root + '**/*.html',
     '!' + paths.src + 'third-party/**',
-    '!' + paths.test + '**/*.js'
+    '!' + paths.test + '**/*.js',
+    '!' + paths.dist + '**/*.js'
   ], ['quick']);
 });
 

@@ -4,7 +4,7 @@ var chai = require('chai')
     , expect = chai.expect
     , sinon = require('sinon');
 
-var VillageServiceModule = require('../../../../app/js/village/services/villageService.js');
+var VillageServiceModule = require('../../../../app/village/services/villageService.js');
 
 describe('The VillageService\'s', function() {
 
@@ -12,13 +12,15 @@ describe('The VillageService\'s', function() {
     var StorageService;
     var ConstantsService;
     var TimeService;
+    var $rootScope;
+    var resourceSchema;
     var village;
-    var baseValues;
-    var buildingStats;
+    var buildingSchema;
 
     beforeEach(function() {
         village = {
-            description: "Hello",
+            description: "Your village is tiny, with only a few inhabitants. Smoke curls from your " +
+            "cabin's chimney, but the cold wind warns you to gather more firewood before night hits.",
             resources: {
                 "lumber" : {
                     amount : 5
@@ -35,7 +37,7 @@ describe('The VillageService\'s', function() {
             time: {}
         };
 
-        baseValues = {
+        resourceSchema = {
             "lumber" : {
                 "increaseAmounts" : {
                     "lumber": 3
@@ -52,8 +54,10 @@ describe('The VillageService\'s', function() {
             }
         };
 
-        buildingStats = {
+        buildingSchema = {
             "sawMill": {
+                "name": "Saw Mill",
+                "description": "A factory where machines saw logs into lumber.",
                 "resourceMultipliers": {
                     "lumber": 1.25
                 }
@@ -62,104 +66,153 @@ describe('The VillageService\'s', function() {
 
         StorageService = {
             saveVillage : sinon.stub().returns(true),
-            getVillage: sinon.stub().returns(village)
+            getVillage: sinon.stub().returns(null),
+            resetVillage: sinon.stub().returns()
         };
 
         ConstantsService = {
-            getResources : sinon.stub().returns(baseValues),
-            getBaseResources : sinon.stub().returns(village),
-            getBuildings : sinon.stub().returns(buildingStats)
+            getResourceSchema : sinon.stub().returns(resourceSchema),
+            getResources : sinon.stub().returns(village.resources),
+            getBuildingSchema : sinon.stub().returns(buildingSchema)
         };
 
         TimeService = {
-            getBasicTimer : sinon.stub().returns({}),
-            addTime : sinon.stub().returns({})
+            getBasicTimer : sinon.stub().returns(true),
+            addTime : sinon.stub().returns(false)
         };
 
-        VillageService = new VillageServiceModule(StorageService, ConstantsService, TimeService);
+        $rootScope = {
+            $broadcast: sinon.stub().returns({})
+        };
+
+        VillageService = new VillageServiceModule(StorageService, ConstantsService, TimeService, $rootScope);
     });
 
     describe('addResource', function() {
-        it('should return an increased amount of lumber when called for lumber', function() {
-            var response = VillageService.addResource("lumber", village);
+        it('should increase the amount of lumber when called for lumber', function() {
+            VillageService.addResource("lumber");
+            var vil = VillageService.getVillage();
 
             expect(StorageService.saveVillage).to.have.been.called;
-            expect(response.resources.lumber.amount).to.equal(8);
+            expect(TimeService.addTime).to.have.been.called;
+            expect($rootScope.$broadcast).to.have.been.called.twice;
+            expect(vil.resources.lumber.amount).to.equal(8);
         });
 
         it('should increase firewood and decrease lumber when called for firewood', function() {
-            var response = VillageService.addResource("firewood", village);
+            VillageService.addResource("firewood");
+            var vil = VillageService.getVillage();
 
             expect(StorageService.saveVillage).to.have.been.called;
-            expect(response.resources.lumber.amount).to.equal(4);
-            expect(response.resources.firewood.amount).to.equal(10);
+            expect(TimeService.addTime).to.have.been.called;
+            expect($rootScope.$broadcast).to.have.been.called.twice;
+            expect(vil.resources.lumber.amount).to.equal(4);
+            expect(vil.resources.firewood.amount).to.equal(10);
         });
 
-        it('should return the original resources if StorageService.saveVillage returns false', function() {
+        it('should not change resources if StorageService.saveVillage returns false', function() {
             StorageService.saveVillage = sinon.stub().returns(false);
+            var vil = VillageService.getVillage();
 
-            var response = VillageService.addResource("lumber", village);
+            VillageService.addResource("lumber");
 
-            expect(StorageService.saveVillage).to.have.been.called;
-            expect(response).to.equal(village);
+            expect(TimeService.addTime).to.have.been.called;
+            expect($rootScope.$broadcast).to.have.been.called.once;
+            expect(StorageService.saveVillage).to.have.been.called.twice;
+            expect(vil.resources.lumber.amount).to.equal(5);
         });
 
-        it('should return original resources if there are insufficient resources', function() {
+        it('should not change resources if there are insufficient resources', function() {
             StorageService.saveVillage = sinon.stub().returns(true);
             village.resources.lumber.amount = 0;
 
-            var response = VillageService.addResource("firewood", village);
+            VillageService.addResource("firewood");
+            var vil = VillageService.getVillage();
 
+            expect(TimeService.addTime).not.to.have.been.called;
+            expect($rootScope.$broadcast).to.have.been.called.once;
             expect(StorageService.saveVillage).not.to.have.been.called;
-            expect(response).to.equal(village);
+            expect(vil.resources.lumber.amount).to.equal(0);
         });
 
         it('should apply the resource multiplier to lumber if the village has a Saw Mill', function() {
-            village.buildings["sawMill"].level = 1;
+            VillageService.buyBuilding("sawMill");
 
-            var response = VillageService.addResource("lumber", village);
+            VillageService.addResource("lumber");
+            var vil = VillageService.getVillage();
 
             expect(StorageService.saveVillage).to.have.been.called;
-            expect(response.resources.lumber.amount).to.equal(5 + 3*1.25);
+            expect(TimeService.addTime).to.have.been.called;
+            expect($rootScope.$broadcast).to.have.been.called.twice;
+            expect(vil.resources.lumber.amount).to.equal(5 + 3*1.25);
         });
     });
 
     describe('buyBuilding', function() {
         it('should make the Saw Mill level 1 after buying that building', function () {
-            var response = VillageService.buyBuilding("sawMill", village);
+            VillageService.buyBuilding("sawMill");
+            var vil = VillageService.getVillage();
 
             expect(StorageService.saveVillage).to.have.been.called;
-            expect(response.buildings["sawMill"].level).to.equal(1);
+            expect($rootScope.$broadcast).to.have.been.called.twice;
+            expect(vil.buildings["sawMill"].level).to.equal(1);
         });
 
         it('should not change the level of Saw Mill if StorageService.saveVillage fails', function () {
             StorageService.saveVillage = sinon.stub().returns(false);
 
-            var response = VillageService.buyBuilding("sawMill", village);
+            VillageService.buyBuilding("sawMill");
+            var vil = VillageService.getVillage();
 
             expect(StorageService.saveVillage).to.have.been.called;
-            expect(response.buildings["sawMill"].level).to.equal(0);
+            expect($rootScope.$broadcast).to.have.been.called.once;
+            expect(vil.buildings["sawMill"].level).to.equal(0);
         });
     });
 
     describe('getVillage', function() {
-        it('should get the village from StorageService.getVillage', function() {
-            var response = VillageService.getVillage();
+        it('should return the village', function() {
+            var vil = VillageService.getVillage();
 
-            expect(StorageService.getVillage).to.have.been.called;
-            expect(ConstantsService.getBaseResources).not.to.have.been.calledAfter(StorageService.getVillage);
-            expect(response).to.equal(village);
+            expect(vil.resources).to.equal(village.resources);
+            expect(vil.time).to.equal(true);
+            expect(vil.buildings).to.not.be.null;
         });
+    });
 
-        it('should use the base resources if StorageService.getVillage returns null', function() {
-            StorageService.getVillage = sinon.stub().returns(null);
+    describe('createVillage', function() {
+        it('should populate description, buildings, resources, and time', function() {
+            //createVillage gets called as part of initialization as long as getVillage returns null
+            var vil = VillageService.getVillage();
 
-            var response = VillageService.getVillage();
-
-            expect(StorageService.getVillage).to.have.been.called;
-            expect(ConstantsService.getBaseResources).to.have.been.called;
+            expect(vil.resources).to.equal(village.resources);
+            expect(vil.time).to.equal(true);
+            expect(vil.buildings).to.not.be.null;
             expect(StorageService.saveVillage).to.have.been.called;
-            expect(response.resources).to.equal(village);
+            expect(ConstantsService.getResources).to.have.been.called;
+            expect(TimeService.getBasicTimer).to.have.been.called;
+        });
+    });
+
+    describe('broadcastVillage', function() {
+        it('should call $rootScope.$broadcast', function() {
+            //Broadcast gets called as part of initialization
+            expect($rootScope.$broadcast).to.have.been.called;
+        });
+    });
+
+    describe('resetVillage', function() {
+        it('should call StorageService.resetVillage, populate village, broadcast', function() {
+            VillageService.resetVillage();
+            var vil = VillageService.getVillage();
+
+            expect(vil.resources).to.equal(village.resources);
+            expect(vil.time).to.equal(true);
+            expect(vil.buildings).to.not.be.null;
+            expect(StorageService.saveVillage).to.have.been.called.twice;
+            expect(ConstantsService.getResources).to.have.been.called.twice;
+            expect(TimeService.getBasicTimer).to.have.been.called.twice;
+            expect($rootScope.$broadcast).to.have.been.called.twice;
         });
     });
 });
