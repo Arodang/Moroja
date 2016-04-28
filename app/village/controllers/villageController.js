@@ -23,8 +23,6 @@ module.exports = function($scope, VillageService) {
     };
 
     $scope.$on('VillageUpdated', getVillage());
-
-
-
+    
     initialize();
 };
