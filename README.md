@@ -6,6 +6,32 @@ This is a super fantastic game about establishing a village and helping it grow!
 
 Read [the wiki page](https://github.com/Arodang/Moroja/wiki/Project-Setup-Instructions).
 
+## Git Workflow
+
+### tl;dr
+
+*Every separate task or new feature should be worked on in its own branch.*
+
+*Then, once you finish working, you can submit a pull request from your task's branch to `dev`.*
+
+### Longer version
+
+First, make sure you have the `dev` branch checked out:
+
+    git checkout dev
+
+Then create your new branch:
+
+    git checkout -b relevant_branch_name
+
+Now you can make your changes!
+
+When you're ready to have your code reviewed, push your changes to the remote branch:
+
+    git push
+
+And then do a pull request from there, using the GitHub website.
+
 ## Running
 
     gulp watch

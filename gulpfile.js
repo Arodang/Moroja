@@ -18,7 +18,7 @@ var gulpPlugins = require('gulp-load-plugins')({
 // Define file path variables
 var paths = {
   root: 'app/',      // App root path
-  src:  'app/js/',   // Source path
+  src:  'app/',   // Source path
   dist: 'app/dist/', // Distribution path
   test: 'test/',     // Test path
 };
@@ -113,11 +113,18 @@ gulp.task('browserify-tests', function () {
   .pipe(gulp.dest(paths.test + 'browserified'));
 });
 
-gulp.task('karma', ['browserify-tests'], function (done) {
+gulp.task('karma-debug', ['browserify-tests'], function (done) {
     new Server({
         configFile: __dirname + '/karma.conf.js',
-        singleRun: true
+        singleRun: false
     }, done).start();
+});
+
+gulp.task('karma', ['browserify-tests'], function (done) {
+  new Server({
+    configFile: __dirname + '/karma.conf.js',
+    singleRun: true
+  }, done).start();
 });
 
 gulp.task('server', ['browserify'], function () {
@@ -145,8 +152,11 @@ gulp.task('watch', function () {
   gulp.start('server');
   gulp.watch([
     paths.src + '**/*.js',
+    paths.root + '**/*.css',
+    paths.root + '**/*.html',
     '!' + paths.src + 'third-party/**',
-    paths.test + '**/*.js',
+    '!' + paths.test + '**/*.js',
+    '!' + paths.dist + '**/*.js'
   ], ['quick']);
 });
 
@@ -160,5 +170,6 @@ gulp.task('fast', ['clean'], function () {
 
 gulp.task('default', ['clean'], function () {
   liveReload = false;
-  gulp.start('karma', 'browserify', 'browserify-min', 'e2e');
+  gulp.start('karma');
+  //gulp.start('karma', 'browserify', 'browserify-min', 'e2e');
 });
