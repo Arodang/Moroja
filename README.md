@@ -1,6 +1,6 @@
 # About
 
-This is a super fantastic game about establishing a village and helping it grow! It uses HTML5 and AngularJS, with styling coming primarily from Bootstrap.
+This is a super fantastic game about establishing a village and helping it grow! It uses HTML5 and Angular 2, with styling coming primarily from Bootstrap.
 
 ## Project Setup
 
