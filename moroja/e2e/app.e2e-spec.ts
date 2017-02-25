@@ -1,6 +1,6 @@
 import { MorojaPage } from './app.po';
 
-describe('moroja App', function() {
+describe('moroja App', () => {
   let page: MorojaPage;
 
   beforeEach(() => {
