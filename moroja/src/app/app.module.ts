@@ -4,17 +4,17 @@ import { FormsModule } from '@angular/forms';
 import { HttpModule } from '@angular/http';
 
 import { AppComponent } from './app.component';
-import { VillageComponent } from './village/village.component';
+import { VillageModule } from './village/village.module';
 
 @NgModule({
   declarations: [
-    AppComponent,
-    VillageComponent
+    AppComponent
   ],
   imports: [
     BrowserModule,
     FormsModule,
-    HttpModule
+    HttpModule,
+    VillageModule
   ],
   providers: [],
   bootstrap: [AppComponent]

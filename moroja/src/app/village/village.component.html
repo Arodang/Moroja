@@ -1,3 +1,16 @@
-<p>
-  village works!
-</p>
+<div class="row" id="resources">
+  <div class="col-sm-12 col-md-4" id="gatherResources">
+    <h5>Gather Resources:</h5>
+    <div *ngFor="let resource of resources">
+      <button (click)="gatherResource(resource.key)">{{resource.name}}</button>
+      <p>{{resource.description}}</p>
+    </div>
+  </div>
+  <div class="col-sm-12 col-md-4" id="displayResources">
+    <h5>Village's Resources:</h5>
+    <div *ngFor="let resource of village.resources">
+      <label>{{resource.name}}</label>
+      <span>{{resource.amount}}</span>
+    </div>
+  </div>
+</div>
