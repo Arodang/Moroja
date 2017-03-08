@@ -1,5 +1,6 @@
 import {Component, OnInit} from '@angular/core';
 import {VillageService} from "./village.service";
+import {Village} from "../shared/models/village.model";
 
 @Component({
   moduleId: module.id,
@@ -9,16 +10,12 @@ import {VillageService} from "./village.service";
   providers: []
 })
 export class VillageComponent implements OnInit {
-  village = {
-    resources: []
-  };
-  resources = [];
+  village: Village;
 
   //constructor is used to initialize local variables and such
   //called first time before the ngOnInit()
-  constructor(villageService: VillageService) {
-    this.village = villageService.getVillage();
-    this.resources = villageService.getResources();
+  constructor(private villageService: VillageService) {
+    this.village = villageService.village;
   }
 
   //ngOnInit is used to do any kind of initialization work besides setting local vars
@@ -28,9 +25,8 @@ export class VillageComponent implements OnInit {
 
   }
 
-  gatherResource(resourceKey: string) {
-    this.village.resources.find(res => res.key === resourceKey).amount
-      += this.resources.find(res => res.key === resourceKey).amount;
+  gatherResource(resourceKey: string): void {
+    this.villageService.gatherResources(resourceKey);
   }
 
 }

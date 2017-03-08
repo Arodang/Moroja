@@ -1,86 +1,35 @@
 import {Injectable} from '@angular/core';
+import {Village} from "../shared/models/village.model";
+import {ConstantsService} from "../shared/services/constants.service";
+import {ResourceSchema} from "../shared/models/resourceSchema.model";
+import {Resource} from "../shared/models/resource.model";
 
 @Injectable()
 export class VillageService {
-  village = {
-    resources: []
-  };
-  resources = [];
-  MOCK_VILLAGE = {
-    resources: [
-      {
-        name: "Lumber",
-        amount: 15,
-        key: "lumber"
-      },
-      {
-        name: "Firewood",
-        amount: 15,
-        key: "firewood"
-      },
-      {
-        name: "Food",
-        amount: 15,
-        key: "food"
-      },
-      {
-        name: "Water",
-        amount: 15,
-        key: "water"
-      },
-      {
-        name: "Stone",
-        amount: 15,
-        key: "stone"
-      }
+  private _village: Village;
+  private _resourceSchemas: ResourceSchema[];
 
-    ]
-  };
-  MOCK_RESOURCES = [
-    {
-      name: "Lumber",
-      amount: 2,
-      description: "Spend a few hours cutting down lumber for use in the village",
-      key: "lumber"
-    },
-    {
-      name: "Firewood",
-      amount: 2,
-      description: "Split a piece of lumber into firewood to keep your cabin warm",
-      key: "firewood"
-    },
-    {
-      name: "Food",
-      amount: 2,
-      description: "Harvest some of the bountiful berries and nuts from the surrounding forest for dinner",
-      key: "food"
-    },
-    {
-      name: "Water",
-      amount: 2,
-      description: "Fetch and boil some water ensure it is safe to drink",
-      key: "water"
-    },
-    {
-      name: "Stone",
-      amount: 2,
-      description: "Gather rock chipped from the island's cliffs",
-      key: "stone"
+  constructor(private constantsService: ConstantsService) {
+    //Should fetch village from storage
+    //if village doesn't exist, then create a new one
+    if (!this._village) {
+      this._village = new Village(constantsService);
     }
-  ];
 
-
-  constructor() {
-    this.village = this.MOCK_VILLAGE;
-    this.resources = this.MOCK_RESOURCES;
+    this._resourceSchemas = constantsService.getResourceSchemas();
   }
 
-  public getVillage() {
-    return this.village;
+
+  get village(): Village {
+    return this._village;
   }
 
-  getResources() {
-    return this.resources;
+  get resourceSchemas(): ResourceSchema[] {
+    return this._resourceSchemas;
+  }
+
+  public gatherResources(resourceKey: string) {
+    this._village.gatherResource(resourceKey);
   }
 
 }

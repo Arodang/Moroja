@@ -1,7 +1,7 @@
 <div class="row" id="resources">
   <div class="col-sm-12 col-md-4" id="gatherResources">
     <h5>Gather Resources:</h5>
-    <div *ngFor="let resource of resources">
+    <div *ngFor="let resource of village.resources">
       <button (click)="gatherResource(resource.key)">{{resource.name}}</button>
       <p>{{resource.description}}</p>
     </div>

@@ -5,6 +5,7 @@ import { HttpModule } from '@angular/http';
 
 import { AppComponent } from './app.component';
 import { VillageModule } from './village/village.module';
+import {SharedModule} from "./shared/shared.module";
 
 @NgModule({
   declarations: [
@@ -14,7 +15,8 @@ import { VillageModule } from './village/village.module';
     BrowserModule,
     FormsModule,
     HttpModule,
-    VillageModule
+    VillageModule,
+    SharedModule
   ],
   providers: [],
   bootstrap: [AppComponent]
