@@ -1,6 +1,7 @@
 import {Component, OnInit} from '@angular/core';
 import {VillageService} from "./village.service";
 import {Village} from "../shared/models/village.model";
+import {TimeService} from "../shared/services/time.service"
 
 @Component({
   moduleId: module.id,
